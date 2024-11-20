@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Cocktail Recommendation Service</title>
+</head>
+<body>
+    <h1>PostgreSQL 데이터 조회 결과</h1>
+
+    {% if data %}
+    <table border="1">
+        <tr>
+            {% for column in data[0].keys() %}
+            <th>{{ column }}</th>
+            {% endfor %}
+        </tr>
+        {% for row in data %}
+        <tr>
+            {% for value in row.values() %}
+            <td>{{ value }}</td>
+            {% endfor %}
+        </tr>
+        {% endfor %}
+    </table>
+    {% else %}
+    <p>데이터가 없습니다.</p>
+    {% endif %}
+</body>
+</html>
