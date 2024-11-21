@@ -2,4 +2,4 @@
 myenv/
 
 #ignore bert model
-models/bert_model/
+text-model/models/bert_model/
