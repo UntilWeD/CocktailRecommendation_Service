@@ -1,13 +1,17 @@
 import torch
 import torch.nn as nn
-from transformers import AutoModel
+from transformers import AutoModel, AutoTokenizer
 
 class MultiLabelClassifier(nn.Module):
-    def __init__(self):
+    def __init__(self, tokenizer_name=None):
         super().__init__()
-        self.bert = AutoModel.from_pretrained("monologg/kobert")  # 한국어 BERT 사용
+        if tokenizer_name is None:
+            tokenizer_name = "klue/bert-base"
+            
+        self.bert = AutoModel.from_pretrained(tokenizer_name)
+        self.tokenizer = AutoTokenizer.from_pretrained(tokenizer_name)
         
-        # 중간 레이어 추가
+        # 중간 레이어
         self.intermediate = nn.Sequential(
             nn.Linear(768, 512),
             nn.ReLU(),
@@ -19,7 +23,7 @@ class MultiLabelClassifier(nn.Module):
             nn.Dropout(0.3)
         )
         
-        # 분류기 레이어
+        # 분류기 레이어들
         self.classifier_도수 = nn.Sequential(
             nn.Linear(256, 128),
             nn.ReLU(),
@@ -38,7 +42,7 @@ class MultiLabelClassifier(nn.Module):
 
     def forward(self, input_ids, attention_mask):
         outputs = self.bert(input_ids=input_ids, attention_mask=attention_mask)
-        pooled_output = outputs[0][:, 0, :]
+        pooled_output = outputs[0][:, 0, :]  # CLS 토큰의 출력
         intermediate_output = self.intermediate(pooled_output)
         
         return {
