@@ -20,17 +20,38 @@ CORS(app)
 def index():
     return render_template("index.html")
 
-# def get_db_data():
+# @app.route('/')
+# def index():
+#     """
+#     메인 페이지 라우트
+#     - 데이터베이스에서 칵테일 정보 조회
+#     - GPT를 사용하여 각 칵테일에 대한 추천 생성
+#     - 결과를 웹 페이지로 표시
+#     """
 #     try:
-#         data = cocktail_service.get_cocktails()
+#         # 데이터베이스에서 칵테일 정보 조회
+#         cocktails = cocktail_service.get_cocktails()
 #
-#         if data is not None:
-#             return render_template('index.html', data=data)
+#         if cocktails is not None:
+#             recommendations = []
+#
+#             # 각 칵테일에 대해 GPT 추천 생성
+#             for cocktail in cocktails[:5]:  # 테스트를 위해 처음 5개만 처리
+#                 recommendation = cocktail_service.get_gpt_recommendation(cocktail)
+#                 recommendations.append({
+#                     'original': cocktail,
+#                     'recommendation': recommendation
+#                 })
+#
+#             return render_template('gptRecommendations.html', recommendations=recommendations)
 #         else:
 #             return "데이터를 가져오는데 실패하였습니다."
 #
 #     except Exception as e:
-#         return f"에러 발생: {str(e)}"
+#         return f"오류 발생: {str(e)}"
+
+
+
 
 @app.route('/detail/<id>')
 def detail(id):
