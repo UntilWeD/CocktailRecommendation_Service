@@ -54,3 +54,7 @@ nosetests.xml
 coverage.xml
 *.cover
 .hypothesis/
+
+# 가상환경-문병준
+bmoenv
+get-pip.py

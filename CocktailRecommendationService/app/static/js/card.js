@@ -1,12 +1,10 @@
-// DB와 연결하여 작성할 예정, GPT 출력으로 만들어진 칵테일 카드
+// DB와 연결하여 작성할 예정, GPT 출력으로 만들어진 칵테일 카드 , + detail로 이동하는 <a> 태그 삭제
 const list = document.querySelector(".cocktail-list");
 
 document
   .querySelector(".cocktail-in-output")
   .addEventListener("submit", function (e) {
     e.preventDefault();
-    const link = document.createElement("a");
-    link.href = "{{ url_for('detail', id='first')}}"; // 변수 들어갈 예정
 
     const card = document.createElement("div");
     card.className = "cocktail-list__card";
@@ -26,8 +24,7 @@ document
     cardSummary.textContent = "";
 
     list.appendChild(card);
-    card.appendChild(link);
-    link.appendChild(cardImg);
-    link.appendChild(cardTitle);
-    link.appendChild(cardSummary);
+    card.appendChild(cardImg);
+    card.appendChild(cardTitle);
+    card.appendChild(cardSummary);
   });
