@@ -12,6 +12,7 @@ numpy>=1.24.0
 tensorflow>=2.12.0
 scikit-learn>=1.2.2
 transformers>=4.30.0
+torch>=2.0.0  # Added PyTorch
 
 # Utilities
 tqdm>=4.65.0
