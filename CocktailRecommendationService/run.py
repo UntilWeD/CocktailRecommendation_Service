@@ -7,8 +7,8 @@ from dotenv import load_dotenv
 
 cocktail_service = CocktailService()
 
-load_dotenv()  # .env 파일 로드
-api_key = os.getenv("GPT_API_KEY") # .env 파일에서 gpt api값 가져옴
+# load_dotenv()  # .env 파일 로드
+# api_key = os.getenv("GPT_API_KEY") # .env 파일에서 gpt api값 가져옴
 
 app = Flask(__name__, static_folder="app/static",template_folder='app/templates')
 CORS(app)
