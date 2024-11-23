@@ -4,31 +4,31 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Cocktail Recommendation Service</title>
-<!--<<<<<<< HEAD-->
-<!--</head>-->
-<!--<body>-->
-<!--    <h1>PostgreSQL 데이터 조회 결과</h1>-->
+    <!--<<<<<<< HEAD-->
+    <!--</head>-->
+    <!--<body>-->
+    <!--    <h1>PostgreSQL 데이터 조회 결과</h1>-->
 
-<!--    {% if data %}-->
-<!--    <table border="1">-->
-<!--        <tr>-->
-<!--            {% for column in data[0].keys() %}-->
-<!--            <th>{{ column }}</th>-->
-<!--            {% endfor %}-->
-<!--        </tr>-->
-<!--        {% for row in data %}-->
-<!--        <tr>-->
-<!--            {% for value in row.values() %}-->
-<!--            <td>{{ value }}</td>-->
-<!--            {% endfor %}-->
-<!--        </tr>-->
-<!--        {% endfor %}-->
-<!--    </table>-->
-<!--    {% else %}-->
-<!--    <p>데이터가 없습니다.</p>-->
-<!--    {% endif %}-->
-<!--</body>-->
-<!--=======-->
+    <!--    {% if data %}-->
+    <!--    <table border="1">-->
+    <!--        <tr>-->
+    <!--            {% for column in data[0].keys() %}-->
+    <!--            <th>{{ column }}</th>-->
+    <!--            {% endfor %}-->
+    <!--        </tr>-->
+    <!--        {% for row in data %}-->
+    <!--        <tr>-->
+    <!--            {% for value in row.values() %}-->
+    <!--            <td>{{ value }}</td>-->
+    <!--            {% endfor %}-->
+    <!--        </tr>-->
+    <!--        {% endfor %}-->
+    <!--    </table>-->
+    <!--    {% else %}-->
+    <!--    <p>데이터가 없습니다.</p>-->
+    <!--    {% endif %}-->
+    <!--</body>-->
+    <!--=======-->
     <link
       rel="stylesheet"
       href="{{ url_for('static', filename='css/index.css') }}"
@@ -98,11 +98,26 @@
             />
             <input class="cocktail-input__btn" type="submit" />
           </div>
-          <div class="cocktail-output">ChatGPT가 칵테일을 만들 준비중...</div>
+          <div class="cocktail-output">
+            <h1>칵테일 추천</h1>
+            <!-- gptRecommendation 내용 이동 -->
+            <!-- 추천 결과 반복 표시 -->
+            {% for item in recommendations %}
+            <div class="cocktail-card">
+              <h2>원본 칵테일: {{ item.original.name }}</h2>
+              <p><strong>재료:</strong> {{ item.original.ingredients }}</p>
+              <div class="recommendation">
+                <h3>GPT 추천:</h3>
+                <p>{{ item.recommendation }}</p>
+              </div>
+            </div>
+            {% else %}
+            <p>칵테일 정보가 없습니다.</p>
+            {% endfor %}
+          </div>
         </form>
         <div class="cocktail-list">
           <!-- <div class="cocktail-list__card">
-            <a href="{{ url_for('detail', id='first')}}">
               <div class="card__image">칵테일 이미지</div>
               <div class="card__title">1번 칵테일</div>
               <div class="card__summary">재료: ...</div>
@@ -113,7 +128,7 @@
       <footer></footer>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
-    <script src="../static/js/gpt.js"></script>
+
     <script src="../static/js/index.js"></script>
     <script src="../static/js/nav.js"></script>
     <script src="../static/js/card.js"></script>
