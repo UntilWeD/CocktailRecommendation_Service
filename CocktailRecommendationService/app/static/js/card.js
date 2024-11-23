@@ -1,4 +1,5 @@
 // DB와 연결하여 작성할 예정, GPT 출력으로 만들어진 칵테일 카드 , + detail로 이동하는 <a> 태그 삭제
+// GPT 값 데이터베이스 저장 시 id값 부여해 카드 식별할 예정
 const list = document.querySelector(".cocktail-list");
 
 document
@@ -17,11 +18,11 @@ document
 
     const cardTitle = document.createElement("div");
     cardTitle.className = "card__title";
-    cardTitle.textContent = "";
+    cardTitle.textContent = "칵테일 이름";
 
     const cardSummary = document.createElement("div");
     cardSummary.className = "card__summary";
-    cardSummary.textContent = "";
+    cardSummary.textContent = "칵테일 간략한 설명";
 
     list.appendChild(card);
     card.appendChild(cardImg);

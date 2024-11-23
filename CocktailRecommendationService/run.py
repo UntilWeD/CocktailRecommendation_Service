@@ -13,39 +13,39 @@ cocktail_service = CocktailService()
 app = Flask(__name__, static_folder="app/static",template_folder='app/templates')
 CORS(app)
 
-# @app.route('/') 
-# def index():
-#     return render_template("index.html")
-
-@app.route('/')
+@app.route('/') 
 def index():
-    """
-    메인 페이지 라우트
-    - 데이터베이스에서 칵테일 정보 조회
-    - GPT를 사용하여 각 칵테일에 대한 추천 생성
-    - 결과를 웹 페이지로 표시
-    """
-    try:
-        # 데이터베이스에서 칵테일 정보 조회
-        cocktails = cocktail_service.get_cocktails()
+    return render_template("index.html")
 
-        if cocktails is not None:
-            recommendations = []
+# @app.route('/')
+# def index():
+#     """
+#     메인 페이지 라우트
+#     - 데이터베이스에서 칵테일 정보 조회
+#     - GPT를 사용하여 각 칵테일에 대한 추천 생성
+#     - 결과를 웹 페이지로 표시
+#     """
+#     try:
+#         # 데이터베이스에서 칵테일 정보 조회
+#         cocktails = cocktail_service.get_cocktails()
 
-            # 각 칵테일에 대해 GPT 추천 생성
-            for cocktail in cocktails[:5]:  # 테스트를 위해 처음 5개만 처리
-                recommendation = cocktail_service.get_gpt_recommendation(cocktail)
-                recommendations.append({
-                    'original': cocktail,
-                    'recommendation': recommendation
-                })
+#         if cocktails is not None:
+#             recommendations = []
 
-            return render_template('gptRecommendations.html', recommendations=recommendations)
-        else:
-            return "데이터를 가져오는데 실패하였습니다."
+#             # 각 칵테일에 대해 GPT 추천 생성
+#             for cocktail in cocktails[:5]:  # 테스트를 위해 처음 5개만 처리
+#                 recommendation = cocktail_service.get_gpt_recommendation(cocktail)
+#                 recommendations.append({
+#                     'original': cocktail,
+#                     'recommendation': recommendation
+#                 })
 
-    except Exception as e:
-        return f"오류 발생: {str(e)}"
+#             return render_template('index.html', recommendations=recommendations)
+#         else:
+#             return "데이터를 가져오는데 실패하였습니다."
+
+#     except Exception as e:
+#         return f"오류 발생: {str(e)}"
 
 # @app.route('/gpt', methods=['POST']) # 이후 모달 추가 위해 @app.route('/detail/<id>') 삭제 
 # def gpt_request():

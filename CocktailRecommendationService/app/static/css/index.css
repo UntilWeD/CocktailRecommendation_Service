@@ -30,6 +30,7 @@ header {
   align-items: center;
   height: 64px;
   background-color: rgba(45, 44, 54, 0.9);
+  z-index: 100;
 }
 
 .nav {
@@ -134,12 +135,12 @@ main {
   width: 100%;
   margin-top: 50px;
   padding: 50px;
-  display: flex;
-  justify-content: space-between;
-  flex-wrap: wrap-reverse;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
 }
 
 .cocktail-list__card {
+  margin: auto;
   width: 300px;
   height: 400px;
   display: flex;
@@ -149,6 +150,7 @@ main {
   margin-top: 50px;
   background-color: #604fb8;
   border-radius: 16px;
+  cursor: pointer;
   transition: transform 0.3s ease;
   &:hover {
     transform: scale(1.05);
@@ -167,7 +169,57 @@ main {
 }
 
 .card__summary {
+  font-weight: 600;
 }
 
 footer {
+  width: 100%;
+  height: 50px;
+}
+
+.modal {
+  display: none;
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 999;
+}
+
+.modal__container {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 25px;
+  width: 700px;
+  height: 840px;
+  background-color: #604fb8;
+  border-radius: 20px;
+}
+
+.modal__close-btn {
+  cursor: pointer;
+  margin-left: auto;
+  svg {
+    width: 35px;
+    height: 35px;
+  }
+}
+
+@media screen and (max-width: 1000px) {
+  .cocktail-list {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media screen and (min-width: 1600px) {
+  .cocktail-list {
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+  }
 }
