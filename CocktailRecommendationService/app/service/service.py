@@ -10,7 +10,7 @@ class CocktailService:
     """
     def __init__(self):
         # PostgreSQL 데이터베이스 연결 설정
-        self.engine = create_engine('postgresql://postgres:7539@localhost:5432/Cocktail')
+        self.engine = create_engine('postgresql://cocktail_v6qs_user:yGWXxLGbU6lkLEb2YD7MMlAHkEkN48l2@dpg-ct1cda3tq21c73enh4v0-a.oregon-postgres.render.com/cocktail_v6qs')
         # OpenAI API 키 설정
         openai.api_key = 'your_openai_api_key'
 
