@@ -1,6 +1,8 @@
 import openai
 import pandas as pd
 from sqlalchemy import create_engine
+import os
+from dotenv import load_dotenv
 
 class CocktailService:
     """
@@ -12,7 +14,8 @@ class CocktailService:
         # PostgreSQL 데이터베이스 연결 설정
         self.engine = create_engine('postgresql://cocktail_v6qs_user:yGWXxLGbU6lkLEb2YD7MMlAHkEkN48l2@dpg-ct1cda3tq21c73enh4v0-a.oregon-postgres.render.com/cocktail_v6qs')
         # OpenAI API 키 설정
-        openai.api_key = 'your_openai_api_key'
+        load_dotenv()
+        openai.api_key = os.getenv("GPT_API_KEY")
 
     def get_cocktails(self):
         """
