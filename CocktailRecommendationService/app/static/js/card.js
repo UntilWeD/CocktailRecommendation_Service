@@ -1,5 +1,6 @@
 // DB와 연결하여 작성할 예정, GPT 출력으로 만들어진 칵테일 카드 , + detail로 이동하는 <a> 태그 삭제
 // GPT 값 데이터베이스 저장 시 id값 부여해 카드 식별할 예정
+// 현재는 제출 버튼 클릭 시 카드 생성, 저장된 GPT 값을 불러와 생성할 필요가 있음
 const list = document.querySelector(".cocktail-list");
 
 document
