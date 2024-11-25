@@ -1,11 +1,8 @@
 import os
 import pandas as pd
+import random
 
-# 디렉토리 생성
-output_dir = "data"
-os.makedirs(output_dir, exist_ok=True)  # 디렉토리가 없으면 생성
-
-# 데이터 생성
+# 원본 데이터
 data = {
     "입력 문장": [
         "나는 달달한 칵테일을 마시고 싶어.",
@@ -57,11 +54,38 @@ data = {
     ]
 }
 
-# 데이터프레임 생성
-df = pd.DataFrame(data)
+# 증강 데이터 생성 함수
+def augment_data(data, num_samples=100):
+    augmented_data = {"입력 문장": [], "도수": [], "술 종류": [], "맛": []}
+
+    for _ in range(num_samples):
+        도수 = random.choice(data["도수"])
+        술_종류 = random.choice(data["술 종류"])
+        맛 = random.choice(data["맛"])
+
+        # 입력 문장 생성
+        input_sentence = f"나는 {도수} 도수의 {맛} {술_종류}을(를) 마시고 싶어."
+        augmented_data["입력 문장"].append(input_sentence)
+        augmented_data["도수"].append(도수)
+        augmented_data["술 종류"].append(술_종류)
+        augmented_data["맛"].append(맛)
+
+    return augmented_data
+
+# 증강 데이터 생성
+augmented_data = augment_data(data, num_samples=200)
+
+# 기존 데이터와 병합
+df_original = pd.DataFrame(data)
+df_augmented = pd.DataFrame(augmented_data)
+df_combined = pd.concat([df_original, df_augmented], ignore_index=True)
+
+# 디렉토리 생성
+output_dir = "data"
+os.makedirs(output_dir, exist_ok=True)
 
 # CSV 파일 저장
 output_path = os.path.join(output_dir, "raw_data.csv")
-df.to_csv(output_path, index=False, encoding="utf-8-sig")
+df_combined.to_csv(output_path, index=False, encoding="utf-8-sig")
 
-print(f"CSV 파일이 '{output_path}'에 저장되었습니다!")
+print(f"증강된 데이터가 '{output_path}'에 저장되었습니다!")
