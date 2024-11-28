@@ -23,21 +23,23 @@ class MultiLabelClassifier(nn.Module):
             nn.Dropout(0.3)
         )
         
-        # 분류기 레이어들
+        # 분류기 레이어들 수정
         self.classifier_도수 = nn.Sequential(
             nn.Linear(256, 128),
             nn.ReLU(),
-            nn.Linear(128, 3)
+            nn.Linear(128, 4)  # 4개 클래스
         )
+        
         self.classifier_술종류 = nn.Sequential(
             nn.Linear(256, 128),
             nn.ReLU(),
-            nn.Linear(128, 4)
+            nn.Linear(128, 5)  # 5개 클래스
         )
+        
         self.classifier_맛 = nn.Sequential(
             nn.Linear(256, 128),
             nn.ReLU(),
-            nn.Linear(128, 5)
+            nn.Linear(128, 6)  # 6개 클래스
         )
 
     def forward(self, input_ids, attention_mask):

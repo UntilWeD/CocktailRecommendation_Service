@@ -1,7 +1,7 @@
 # Deep Learning & Machine Learning
-torch>=2.2.1
-torchvision>=0.17.1
-torchaudio>=2.2.1
+torch>=2.2.1+cu118
+torchvision>=0.17.1+cu118
+torchaudio>=2.2.1+cu118
 transformers>=4.30.0
 scikit-learn>=1.2.2
 
