@@ -7,6 +7,12 @@ a {
   color: inherit;
 }
 
+ul {
+  list-style: none; /* 불릿 스타일 제거 */
+  margin: 0; /* 기본 마진 제거 */
+  padding: 0; /* 기본 패딩 제거 */
+}
+
 html,
 body {
   margin: 0;
@@ -41,17 +47,37 @@ header {
   display: flex;
 }
 
-.nav__menu-icon {
-  width: 48px;
+.nav__menu {
   position: fixed;
-  top: 8px;
-  left: 8px;
+  top: 10px;
+  left: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.nav__menu-icon {
+  margin-left: 10px;
+  width: 38px;
   cursor: pointer;
 }
 
 .nav__menu-sidebar {
   display: none;
-  z-index: 99;
+  z-index: 100;
+  background-color: rgba(45, 44, 54, 0.9);
+  width: 180px;
+  padding: 10px;
+  border-radius: 0 0 12px 0;
+}
+
+.nav__menu-sidebar > li {
+  margin-bottom: 10px;
+}
+
+.nav__menu-sidebar > li:hover {
+  background-color: rgba(88, 86, 106, 0.9);
+  transition-duration: 0.5s;
 }
 
 .nav__main-title {
