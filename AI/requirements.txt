@@ -14,6 +14,11 @@ konlpy>=0.6.0
 nltk>=3.8.1    
 nlpaug>=1.1.11 
 
+# Web Framework & API
+flask>=3.0.0
+flask-cors>=4.0.0
+gunicorn>=21.2.0
+
 # Utilities
 tqdm>=4.65.0   
 JPype1>=1.4.1  
