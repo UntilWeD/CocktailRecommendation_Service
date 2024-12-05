@@ -21,6 +21,9 @@ app.secret_key = 'your_secret_key_here'
 
 CORS(app)
 
+# 후에 세션에서 사용자의 이메일값을 알기위해서는
+# user_email = session.get('email') 로 사용하면 됨
+
 @app.route('/') 
 def index():
     if 'email' in session:
