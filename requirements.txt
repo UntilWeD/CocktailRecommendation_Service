@@ -1,0 +1,18 @@
+# Build Tools
+wheel>=0.40.0
+
+# Natural Language Processing
+nltk>=3.8.1
+konlpy>=0.6.0
+nlpaug>=1.1.11
+pandas>=2.0.0
+numpy>=1.24.0
+
+# Deep Learning & Machine Learning
+tensorflow>=2.12.0
+scikit-learn>=1.2.2
+transformers>=4.30.0
+
+# Utilities
+tqdm>=4.65.0
+JPype1>=1.4.1  # Required for konlpy

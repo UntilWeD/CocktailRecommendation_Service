@@ -1,0 +1,5 @@
+#excute myenv
+myenv/
+
+#ignore bert model
+text-model/models/bert_model/
