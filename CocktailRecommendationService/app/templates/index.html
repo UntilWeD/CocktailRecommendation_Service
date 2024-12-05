@@ -9,7 +9,7 @@
     <!--<body>-->
     <!--    <h1>PostgreSQL 데이터 조회 결과</h1>-->
 
-    <!--    {% if data %}-->zz
+    <!--    {% if data %}-->
     <!--    <table border="1">-->
     <!--        <tr>-->
     <!--            {% for column in data[0].keys() %}-->
@@ -34,6 +34,18 @@
       href="{{ url_for('static', filename='css/index.css') }}"
     />
   </head>
+  <!-- 로그인 및 로그아웃  , 김진우  -->
+  <div class="login-section">
+    {% if login %}
+    <h2>환영합니다, {{ email }}님!</h2>
+    <p>로그인되었습니다.</p>
+    <a href="/logout" class="btn">로그아웃</a>
+    {% else %}
+    <h2>로그인이 필요합니다</h2>
+    <a href="/login" class="btn">로그인</a>
+    {% endif %}
+  </div>
+  <!-- 로그인 및 로그아웃  , 김진우  -->
   <body>
     <div class="wrapper">
       <header>
@@ -59,6 +71,13 @@
         <div class="description">
           <img class="description__img" src="../static/images/drink.jpg" />
           <article class="description__service">
+            <!-- 로그인 하였을 때 값 출력 , 김진우  -->
+            {% if login %}
+            <div>환영합니다, {{ email }}님!</div>
+            {% else %}
+            <div></div>
+            {% endif %}
+            <!-- 로그인 하였을 때 값 출력 , 김진우  -->
             <span class="text-highlight">
               "나만의 완벽한 칵테일을 찾아보세요!"
             </span>
@@ -88,21 +107,23 @@
             </div>
           </article>
         </div>
-        <form class="cocktail-in-output">
+        <form id="recommend-form" class="cocktail-in-output">
           <div class="cocktail-in-output__container">
             <input
               class="cocktail-input"
+              name="user_description"
               type="text"
               placeholder="원하는 칵테일을 설명해주세요 ex) 맛, 향, 재료 등"
               required
             />
-            <input class="cocktail-input__btn" type="submit" />
+            <button class="cocktail-input__btn" type="submit">추천</button>
           </div>
-          <div class="cocktail-output">
+          <div class="cocktail-output" id="cocktail-output">
             <h1>칵테일 추천</h1>
+            <p>원하는 칵테일을 입력하고 추천 버튼을 눌러보세요!</p>
             <!-- gptRecommendation 내용 이동 -->
             <!-- 추천 결과 반복 표시 -->
-            {% for item in recommendations %}
+            <!-- {% for item in recommendations %}
             <div class="cocktail-card">
               <h2>원본 칵테일: {{ item.original.name }}</h2>
               <p><strong>재료:</strong> {{ item.original.ingredients }}</p>
@@ -113,7 +134,7 @@
             </div>
             {% else %}
             <p>칵테일 정보가 없습니다.</p>
-            {% endfor %}
+            {% endfor %} -->
           </div>
         </form>
         <div class="cocktail-list">
@@ -151,9 +172,10 @@
       <footer></footer>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
-    <script src="../static/js/index.js"></script>
-    <script src="../static/js/nav.js"></script>
-    <script src="../static/js/card.js"></script>
-    <script src="../static/js/modal.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="{{ url_for('static', filename='js/index.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/nav.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/card.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/modal.js') }}"></script>
   </body>
 </html>

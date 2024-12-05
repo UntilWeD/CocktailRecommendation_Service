@@ -8,7 +8,6 @@ cardList.addEventListener("click", (e) => {
   const card = e.target.closest(".cocktail-list__card"); // 선택자와 일치하는 가장 가까운 조상 요소(자기 자신 포함)를 반환
   if (card) {
     isModalOpen = true;
-    console.log("Card is Clicked!");
     modal.style.display = "block";
   }
 });
@@ -22,7 +21,6 @@ modal.addEventListener("click", (e) => {
   // 모달 창 밖 클릭 시 창 닫기
   if (e.target === modal) {
     // 모달 레이아웃 자체를 클릭했을 때만 닫기
-    console.log("Overlay is Clicked!");
     modal.style.display = "none";
   }
 });
