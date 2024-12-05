@@ -34,6 +34,18 @@
       href="{{ url_for('static', filename='css/index.css') }}"
     />
   </head>
+  <!-- 로그인 및 로그아웃  , 김진우  -->
+  <div class="login-section">
+    {% if login %}
+      <h2>환영합니다, {{ email }}님!</h2>
+      <p>로그인되었습니다.</p>
+    <a href="/logout" class="btn">로그아웃</a>
+    {% else %}
+      <h2>로그인이 필요합니다</h2>
+      <a href="/login" class="btn">로그인</a>
+    {% endif %}
+  </div>
+  <!-- 로그인 및 로그아웃  , 김진우  -->
   <body>
     <div class="wrapper">
       <header>
@@ -59,6 +71,13 @@
         <div class="description">
           <img class="description__img" src="../static/images/drink.jpg" />
           <article class="description__service">
+            <!-- 로그인 하였을 때 값 출력 , 김진우  -->
+            {% if login %}
+            <div>환영합니다, {{ email }}님!</div>
+            {% else %}
+            <div> </div>
+            {% endif %}
+            <!-- 로그인 하였을 때 값 출력 , 김진우  -->
             <span class="text-highlight">
               "나만의 완벽한 칵테일을 찾아보세요!"
             </span>

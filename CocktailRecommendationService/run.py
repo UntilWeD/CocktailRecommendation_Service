@@ -1,21 +1,87 @@
 import os
 import requests
-from flask import Flask, render_template, request, jsonify
-from app.service.service import CocktailService
+from flask import Flask, render_template, request, redirect, session,jsonify, url_for
+from app.service.service import CocktailService, UserService
 from flask_cors import CORS
 from dotenv import load_dotenv
-
-cocktail_service = CocktailService()
+from flask_login import LoginManager, login_user
 
 # load_dotenv()  # .env 파일 로드
 # api_key = os.getenv("GPT_API_KEY") # .env 파일에서 gpt api값 가져옴
 
+
 app = Flask(__name__, static_folder="app/static",template_folder='app/templates')
+
+# 서비스 객체 생성
+cocktail_service = CocktailService()
+user_service = UserService()
+# 세션 암호화 키
+app.secret_key = 'your_secret_key_here'
+
+
 CORS(app)
 
 @app.route('/') 
 def index():
-    return render_template("index.html")
+    if 'email' in session:
+        return render_template("index.html", email = session.get('email'), login = True)
+    else:
+        return render_template("index.html",login = False)
+
+# 회원가입
+@app.route('/register', methods=['GET','POST'])
+def register():
+    if request.method == 'GET':
+        return render_template("register.html")
+
+    if request.method == 'POST':
+        email = request.form.get('email')
+        password = request.form.get('password')
+
+        if email is None or password is None:
+            return redirect('/register')
+
+        # db에 회원정보 저장
+        user_service.register_user(email, password)
+        return redirect('/login')
+
+
+
+
+# 로그인
+@app.route('/login', methods=['GET','POST'])
+def login():
+
+    if request.method == 'GET':
+        return render_template("login.html")
+
+    if request.method == 'POST':
+        #form 방식
+        email = request.form.get('email')
+        password = request.form.get('password')
+
+        if email is None or password is None:
+            return redirect('/login')
+
+        # db에서 회원정보 조회
+        user = user_service.get_user(email, password)
+
+        # user가 존재한다면 세션에 저장
+        if user is not None:
+            session['email'] = user['email']
+            return redirect('/')
+        else:
+            # 그렇지 않다면 다시 로그인 페이지로
+            return redirect('/login')
+
+# 로그아웃
+@app.route('/logout')
+def logout():
+    session.pop('email', None)
+    return redirect('/')
+
+
+
 
 # @app.route('/')
 # def index():

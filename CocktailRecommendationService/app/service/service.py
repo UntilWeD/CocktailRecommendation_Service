@@ -1,6 +1,9 @@
 import openai
 import pandas as pd
 from sqlalchemy import create_engine
+from app.service.db import CocktailDBService
+
+db_service = CocktailDBService()
 
 class CocktailService:
     """
@@ -33,3 +36,38 @@ class CocktailService:
         except Exception as e:
             print(f"GPT 추천 오류: {str(e)}")
             return None
+
+class UserService:
+    """
+    사용자 관리 서비스를 제공하는 클래스
+    - 데이터베이스 연결 및 조회
+    - 사용자 인증 기능 제공
+    """
+    def __init__(self):
+        self.db = CocktailDBService()
+
+
+    def get_user(self, email, password):
+        """
+        사용자 정보를 조회하는 메서드
+        Args:
+            email (str): 사용자 이메일
+            password (str): 사용자 비밀번호
+        Returns:
+            User: 사용자 정보를 담은 User 객체
+        """
+        return db_service.get_user(email, password)
+
+    def register_user(self, email, password):
+        """
+        사용자 정보를 등록하는 메서드
+        Args:
+            email (str): 사용자 이메일
+            password (str): 사용자 비밀번호
+        Returns:
+            bool: 사용자 등록 성공 여부
+        """
+        return db_service.register_user(email, password)
+
+
+
