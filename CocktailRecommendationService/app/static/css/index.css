@@ -29,6 +29,7 @@ header {
   top: 0;
   left: 0;
   right: 0;
+  width: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -38,15 +39,15 @@ header {
 }
 
 .nav {
+  width: 100%;
   display: flex;
+  justify-content: space-between;
 }
 
 .nav__menu-icon {
   width: 48px;
-  position: fixed;
-  top: 8px;
-  left: 8px;
   cursor: pointer;
+  margin-left: 8px;
 }
 
 .nav__main-title {
@@ -54,6 +55,28 @@ header {
   font-weight: 500;
   cursor: pointer;
   color: white;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.nav__login-state {
+  margin-right: 8px;
+  display: flex;
+  align-items: center;
+  color: #ffffff;
+  gap: 8px;
+}
+
+.log-in-out {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 70px;
+  height: 30px;
+  background-color: #604fb8;
+  font-size: 0.8rem;
+  border-radius: 5px;
 }
 
 main {

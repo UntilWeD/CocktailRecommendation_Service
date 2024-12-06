@@ -22,12 +22,12 @@ document.addEventListener("DOMContentLoaded", () => {
         let outputHTML = "<h1>칵테일 추천</h1>";
         response.data.recommendations.forEach((item) => {
           outputHTML += `
-              <div class="cocktail-card">
-                <h2>원본 칵테일: ${item.original.name}</h2>
-                <p><strong>재료:</strong> ${item.original.ingredients}</p>
+              <div>
+                <h2>칵테일 이름: ${item.name}</h2>
+                <p><strong>재료:</strong> ${item.ingredients}</p>
                 <div class="recommendation">
-                  <h3>GPT 추천:</h3>
-                  <p>${item.recommendation}</p>
+                  <h3>제조 방법:</h3>
+                  <p>${item.method}</p>
                 </div>
               </div>
             `;

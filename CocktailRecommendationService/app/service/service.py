@@ -18,8 +18,8 @@ class CocktailService:
     """
     def __init__(self):
         # OpenAI API 키 설정
-        # load_dotenv()
-        # openai.api_key = os.getenv("GPT_API_KEY")
+        load_dotenv()
+        openai.api_key = os.getenv("GPT_API_KEY")
         self.db_service = CocktailDBService()
         # OpenAI API 키 확인
         if not openai.api_key:

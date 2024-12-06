@@ -34,18 +34,6 @@
       href="{{ url_for('static', filename='css/index.css') }}"
     />
   </head>
-  <!-- 로그인 및 로그아웃  , 김진우  -->
-  <div class="login-section">
-    {% if login %}
-    <h2>환영합니다, {{ email }}님!</h2>
-    <p>로그인되었습니다.</p>
-    <a href="/logout" class="btn">로그아웃</a>
-    {% else %}
-    <h2>로그인이 필요합니다</h2>
-    <a href="/login" class="btn">로그인</a>
-    {% endif %}
-  </div>
-  <!-- 로그인 및 로그아웃  , 김진우  -->
   <body>
     <div class="wrapper">
       <header>
@@ -65,6 +53,17 @@
             </svg>
           </div>
           <div class="nav__main-title">🍸Cocktail Recommendation Service</div>
+          <!-- 로그인 및 로그아웃  , 김진우  -->
+          <div class="nav__login-state">
+            {% if login %}
+            <div>환영합니다😊, {{ email }}님!</div>
+            <a href="/logout" class="log-in-out">로그아웃</a>
+            {% else %}
+            <div>로그인이 필요합니다</div>
+            <a href="/login" class="log-in-out">로그인</a>
+            {% endif %}
+          </div>
+          <!-- 로그인 및 로그아웃  , 김진우  -->
         </nav>
       </header>
       <main>
