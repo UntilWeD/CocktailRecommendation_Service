@@ -7,6 +7,12 @@ a {
   color: inherit;
 }
 
+ul {
+  list-style: none; /* 불릿 스타일 제거 */
+  margin: 0; /* 기본 마진 제거 */
+  padding: 0; /* 기본 패딩 제거 */
+}
+
 html,
 body {
   margin: 0;
@@ -44,10 +50,35 @@ header {
   justify-content: space-between;
 }
 
+.nav__menu {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
 .nav__menu-icon {
-  width: 48px;
+  margin-left: 10px;
+  width: 38px;
   cursor: pointer;
   margin-left: 8px;
+}
+
+.nav__menu-sidebar {
+  display: none;
+  z-index: 100;
+  background-color: rgba(45, 44, 54, 0.9);
+  width: 180px;
+  padding: 10px;
+  border-radius: 0 0 12px 0;
+}
+
+.nav__menu-sidebar > li {
+  margin-bottom: 10px;
+}
+
+.nav__menu-sidebar > li:hover {
+  background-color: rgba(88, 86, 106, 0.9);
+  transition-duration: 0.5s;
 }
 
 .nav__main-title {
@@ -85,7 +116,13 @@ main {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 80px;
+  gap: 40px;
+}
+
+.summary {
+  margin-top: 70px;
+  width: 90%;
+  font-size: 2rem;
 }
 
 .description {
@@ -110,7 +147,7 @@ main {
 }
 
 .text-highlight {
-  font-weight: 500;
+  font-weight: 600;
 }
 
 .cocktail-in-output {
@@ -138,6 +175,11 @@ main {
   width: 60px;
   height: 60px;
   border-radius: 50%;
+  background-color: #d97621;
+  cursor: pointer;
+  &:hover {
+    transform: scale(1.05);
+  }
 }
 
 .cocktail-output {
@@ -149,9 +191,13 @@ main {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  color: white;
-  padding: 3%;
+  padding: 5%;
   overflow-y: auto; /* 텍스트 일정 이상일 시 스크롤 생성 */
+}
+
+.cocktail-output__container {
+  color: white;
+  overflow-y: auto;
 }
 
 .cocktail-output::-webkit-scrollbar {
@@ -161,7 +207,6 @@ main {
 
 .cocktail-list {
   width: 100%;
-  margin-top: 50px;
   padding: 50px;
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
@@ -171,11 +216,11 @@ main {
   margin: auto;
   width: 300px;
   height: 400px;
+  margin-bottom: 40px;
   display: flex;
   flex-direction: column;
   align-items: center;
   font-size: 1rem;
-  margin-top: 50px;
   background-color: #604fb8;
   border-radius: 16px;
   cursor: pointer;
@@ -194,10 +239,11 @@ main {
 
 .card__title {
   margin-top: 10px;
+  font-weight: 600;
+  font-size: 1.3rem;
 }
 
 .card__summary {
-  font-weight: 600;
 }
 
 footer {
@@ -224,6 +270,7 @@ footer {
   display: flex;
   flex-direction: column;
   align-items: center;
+  gap: 15px;
   padding: 25px;
   width: 700px;
   height: 840px;
@@ -240,8 +287,32 @@ footer {
   }
 }
 
+.modal__container__header {
+}
+
+.cocktail-details__title {
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+
+.modal__container__main {
+}
+
+.divider {
+  margin-top: auto;
+  width: 90%;
+  border: 1px solid #2d2d2e;
+}
+
+.modal__container__footer {
+  height: 240px;
+}
+
 @media screen and (max-width: 1000px) {
   .cocktail-list {
     grid-template-columns: 1fr 1fr;
+  }
+  .nav {
+    font-size: 10px;
   }
 }

@@ -14,9 +14,6 @@ api_key = os.getenv("GPT_API_KEY")  # .env 파일에서 GPT API 키 가져오기
 if not api_key:
     raise ValueError("GPT_API_KEY is not set in the environment variables.")
 
-import openai
-openai.api_key = api_key  # OpenAI API 키 설정
-
 app = Flask(__name__, static_folder="app/static",template_folder='app/templates')
 
 # 서비스 객체 생성
@@ -113,8 +110,8 @@ def recommend():
         사용자가 다음과 같이 설명한 칵테일을 기반으로 유사한 칵테일을 추천해 주세요.
         설명: {description}
         
-        데이터베이스에 있는 칵테일 목록:
-        {', '.join([cocktail['name'] for cocktail in cocktails])}
+        데이터베이스에 있는 칵테일 목록 (최대 100개):
+        {', '.join([cocktail['name'] for cocktail in cocktails[:100]])}
         
         각 추천에 대해 칵테일 이름, 재료, 제조 방법을 JSON 형식으로 반환해 주세요.
         예시:
@@ -128,8 +125,11 @@ def recommend():
         ]
         """
 
+        print(f"GPT 프롬프트: {prompt}")  # 프롬프트 로그
+
         # GPT API 호출하여 추천 생성
         gpt_response = cocktail_service.get_gpt_recommendation_from_prompt(prompt)
+        print(f"GPT 응답: {gpt_response}")  # GPT 응답 로그
 
         if not gpt_response:
             return jsonify({'error': '추천 생성에 실패했습니다.'}), 500
@@ -137,64 +137,17 @@ def recommend():
         # GPT의 JSON 응답을 파싱
         try:
             recommendations = json.loads(gpt_response)
+            print(f"추천 결과: {recommendations}")  # 추천 결과 로그
         except json.JSONDecodeError:
+            print("GPT 응답 형식 오류:", gpt_response)  # 서버 로그에 출력
             return jsonify({'error': '추천 데이터를 파싱하는데 실패했습니다.'}), 500
 
         # 추천 결과 반환
         return jsonify({'recommendations': recommendations})
 
     except Exception as e:
+        print(f"추천 라우트 오류: {str(e)}")  # 서버 로그에 출력
         return jsonify({'error': str(e)}), 500
-
-
-# @app.route('/')
-# def index():
-#     """
-#     메인 페이지 라우트
-#     - 데이터베이스에서 칵테일 정보 조회
-#     - GPT를 사용하여 각 칵테일에 대한 추천 생성
-#     - 결과를 웹 페이지로 표시
-#     """
-#     try:
-#         # 데이터베이스에서 칵테일 정보 조회
-#         cocktails = cocktail_service.get_cocktails()
-
-#         if cocktails is not None:
-#             recommendations = []
-
-#             # 각 칵테일에 대해 GPT 추천 생성
-#             for cocktail in cocktails[:5]:  # 테스트를 위해 처음 5개만 처리
-#                 recommendation = cocktail_service.get_gpt_recommendation(cocktail)
-#                 recommendations.append({
-#                     'original': cocktail,
-#                     'recommendation': recommendation
-#                 })
-
-#             return render_template('index.html', recommendations=recommendations)
-#         else:
-#             return "데이터를 가져오는데 실패하였습니다."
-
-#     except Exception as e:
-#         return f"오류 발생: {str(e)}"
-
-# @app.route('/gpt', methods=['POST']) # 이후 모달 추가 위해 @app.route('/detail/<id>') 삭제 
-# def gpt_request():
-#     data = request.json
-#     question = data.get('question')
-
-#     headers = {"Content-Type": "application/json"}
-#     payload = {
-#         "service": "gpt",
-#         "question": question,
-#         "hash": api_key
-#     }
-#     try:
-#         response = requests.post("https://cesrv.hknu.ac.kr/srv/gpt", json=payload, headers=headers)
-#         response.raise_for_status()
-#         return jsonify(response.json())  # GPT API 응답 반환
-#     except requests.exceptions.RequestException as e:
-#         return jsonify({"error": str(e)}), 500
-
 
 if __name__ == '__main__':
     app.run(debug=True)

@@ -2,6 +2,7 @@ import openai
 import pandas as pd
 from sqlalchemy import create_engine
 import json
+import requests
 
 import os
 from dotenv import load_dotenv
@@ -17,56 +18,86 @@ class CocktailService:
     - GPT 기반 추천 기능 제공
     """
     def __init__(self):
-        # OpenAI API 키 설정
-        load_dotenv()
-        openai.api_key = os.getenv("GPT_API_KEY")
+        self.api_key = os.getenv("GPT_API_KEY")
+        openai.api_key = self.api_key
         self.db_service = CocktailDBService()
-        # OpenAI API 키 확인
-        if not openai.api_key:
-            raise ValueError("OpenAI API key is not set. Please set GPT_API_KEY in your environment variables.")
-        print(f"Loaded OpenAI API Key: {openai.api_key}")  # 디버그용, 배포 시 제거 필요
 
+        # 기존 GPT코드 API 키 에러 이슈로 추가
+        self.api_url = "https://cesrv.hknu.ac.kr/srv/gpt"
+        self.headers = {
+            "Content-Type": "application/json"
+        }
+       
+    # def get_gpt_recommendation(self, cocktail_info):
+    #     """
+    #     GPT를 사용하여 칵테일 추천을 생성하는 메서드
+    #     Args:
+    #         cocktail_info (dict): 원본 칵테일 정보
+    #     Returns:
+    #         str: GPT가 생성한 추천 텍스트
+    #     """
+    #     try:
+    #         # GPT API를 호출하여 추천 생성
+    #         response = openai.ChatCompletion.create(
+    #             model="gpt-4",
+    #             messages=[
+    #                 {"role": "system", "content": "당신은 전문 칵테일 추천 전문가입니다."},
+    #                 {"role": "user", "content": f"{cocktail_info['name']}와 비슷한 칵테일을 재료와 제조방법과 함께 추천해주세요."}
+    #             ]
+    #         )
+    #         return response.choices[0].message['content']
+    #     except Exception as e:
+    #         print(f"GPT 추천 오류: {str(e)}")
+    #         return None
+    
+    # 기존 GPT코드 API 키 에러 이슈로 코드 아래와 같이 수정
     def get_gpt_recommendation(self, cocktail_info):
         """
-        GPT를 사용하여 칵테일 추천을 생성하는 메서드
+        자체 GPT API를 사용하여 칵테일 추천을 생성하는 메서드
         Args:
             cocktail_info (dict): 원본 칵테일 정보
         Returns:
             str: GPT가 생성한 추천 텍스트
         """
+        question = f"{cocktail_info['name']}와 비슷한 칵테일을 재료와 제조방법과 함께 추천해주세요."
+        payload = {
+            "service": "gpt",
+            "question": question,
+            "hash": self.api_key
+        }
+        
         try:
-            # GPT API를 호출하여 추천 생성
-            response = openai.ChatCompletion.create(
-                model="gpt-3.5-turbo",
-                messages=[
-                    {"role": "system", "content": "당신은 전문 칵테일 추천 전문가입니다."},
-                    {"role": "user", "content": f"{cocktail_info['name']}와 비슷한 칵테일을 재료와 제조방법과 함께 추천해주세요."}
-                ]
-            )
-            return response.choices[0].message['content']
+            response = requests.post(self.api_url, data=json.dumps(payload), headers=self.headers)
+            response.raise_for_status()  # HTTP 오류 발생 시 예외 발생
+            
+            data = response.json()
+            # 응답 형식에 따라 적절히 데이터 추출
+            return data.get("answer", "추천을 생성할 수 없습니다.")
         except Exception as e:
-            print(f"GPT 추천 오류: {str(e)}")
+            print(f"Unexpected error: {e}")  # 디버그용
             return None
-    
+
     def get_gpt_recommendation_from_prompt(self, prompt):
         """
-        GPT에 프롬프트를 직접 전달하여 추천을 받는 메서드
+        자체 GPT API를 사용하여 주어진 프롬프트에 대한 추천을 생성하는 메서드
         Args:
-            prompt (str): GPT에 전달할 프롬프트
+            prompt (str): 사용자로부터 받은 프롬프트
         Returns:
             str: GPT가 생성한 추천 텍스트
         """
+        payload = {
+            "service": "gpt",
+            "question": prompt,
+            "hash": self.api_key
+        }
         try:
-            response = openai.ChatCompletion.create(
-                model="gpt-3.5-turbo",
-                messages=[
-                    {"role": "system", "content": "당신은 전문 칵테일 추천 전문가입니다."},
-                    {"role": "user", "content": prompt}
-                ]
-            )
-            return response.choices[0].message['content']
+            response = requests.post(self.api_url, data=json.dumps(payload), headers=self.headers)
+            response.raise_for_status()  # HTTP 오류 발생 시 예외 발생
+            
+            data = response.json()
+            return data.get("answer", "추천을 생성할 수 없습니다.")
         except Exception as e:
-            print(f"GPT 추천 오류: {str(e)}")
+            print(f"Unexpected error: {e}")  # 디버그용
             return None
 
 class UserService:

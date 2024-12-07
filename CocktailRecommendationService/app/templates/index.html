@@ -4,31 +4,6 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Cocktail Recommendation Service</title>
-    <!--<<<<<<< HEAD-->
-    <!--</head>-->
-    <!--<body>-->
-    <!--    <h1>PostgreSQL 데이터 조회 결과</h1>-->
-
-    <!--    {% if data %}-->
-    <!--    <table border="1">-->
-    <!--        <tr>-->
-    <!--            {% for column in data[0].keys() %}-->
-    <!--            <th>{{ column }}</th>-->
-    <!--            {% endfor %}-->
-    <!--        </tr>-->
-    <!--        {% for row in data %}-->
-    <!--        <tr>-->
-    <!--            {% for value in row.values() %}-->
-    <!--            <td>{{ value }}</td>-->
-    <!--            {% endfor %}-->
-    <!--        </tr>-->
-    <!--        {% endfor %}-->
-    <!--    </table>-->
-    <!--    {% else %}-->
-    <!--    <p>데이터가 없습니다.</p>-->
-    <!--    {% endif %}-->
-    <!--</body>-->
-    <!--=======-->
     <link
       rel="stylesheet"
       href="{{ url_for('static', filename='css/index.css') }}"
@@ -38,12 +13,12 @@
     <div class="wrapper">
       <header>
         <nav class="nav">
-          <div class="nav__menu-icon">
+          <div class="nav__menu">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 24 24"
               fill="currentColor"
-              class="size-6"
+              class="nav__menu-icon"
             >
               <path
                 fill-rule="evenodd"
@@ -51,6 +26,11 @@
                 clip-rule="evenodd"
               />
             </svg>
+            <ul class="nav__menu-sidebar">
+              <li>1번 메뉴</li>
+              <li>2번 메뉴</li>
+              <li>3번 메뉴</li>
+            </ul>
           </div>
           <div class="nav__main-title">🍸Cocktail Recommendation Service</div>
           <!-- 로그인 및 로그아웃  , 김진우  -->
@@ -67,6 +47,7 @@
         </nav>
       </header>
       <main>
+        <div class="summary">맞춤형 칵테일을 추천 해드려요 :)</div>
         <div class="description">
           <img class="description__img" src="../static/images/drink.jpg" />
           <article class="description__service">
@@ -78,7 +59,7 @@
             {% endif %}
             <!-- 로그인 하였을 때 값 출력 , 김진우  -->
             <span class="text-highlight">
-              "나만의 완벽한 칵테일을 찾아보세요!"
+              나만의 완벽한 칵테일을 찾아보세요!
             </span>
             <div>
               칵테일에 입문하고 싶지만, 어떤 칵테일이 있고 나에게 딱 맞을지
@@ -102,10 +83,11 @@
               수 있는 서비스를 제공합니다.
             </div>
             <div>
-              "한 잔의 칵테일이 완벽한 순간을 만들어줍니다. 지금 시작하세요!"
+              한 잔의 칵테일이 완벽한 순간을 만들어줍니다. 지금 시작하세요!
             </div>
           </article>
         </div>
+        <div class="summary">지금 마시고 싶은 칵테일에 대해 설명해주세요🥂</div>
         <form id="recommend-form" class="cocktail-in-output">
           <div class="cocktail-in-output__container">
             <input
@@ -120,22 +102,9 @@
           <div class="cocktail-output" id="cocktail-output">
             <h1>칵테일 추천</h1>
             <p>원하는 칵테일을 입력하고 추천 버튼을 눌러보세요!</p>
-            <!-- gptRecommendation 내용 이동 -->
-            <!-- 추천 결과 반복 표시 -->
-            <!-- {% for item in recommendations %}
-            <div class="cocktail-card">
-              <h2>원본 칵테일: {{ item.original.name }}</h2>
-              <p><strong>재료:</strong> {{ item.original.ingredients }}</p>
-              <div class="recommendation">
-                <h3>GPT 추천:</h3>
-                <p>{{ item.recommendation }}</p>
-              </div>
-            </div>
-            {% else %}
-            <p>칵테일 정보가 없습니다.</p>
-            {% endfor %} -->
           </div>
         </form>
+        <div class="summary">선호하는 칵테일을 모아봤어요!</div>
         <div class="cocktail-list">
           <!-- <div class="cocktail-list__card">
                   <div class="card__image">칵테일 이미지</div>
@@ -160,11 +129,20 @@
                 />
               </svg>
             </div>
-            <h1>상세 내용 모달입니다.</h1>
-            <p>
+            <div class="modal__container__header">
+              <div class="cocktail-details__title">예시) **칵테일</div>
+            </div>
+            <p class="modal__container__main">
               칵테일 이미지, 이름, 알코올, 잔, 재료, 제조법, 추천 이유 등이
               들어갈 예정입니다.
             </p>
+            <div class="divider"></div>
+            <div class="modal__container__footer">
+              <div class="cocktail-details__title"></div>
+              <p>
+                유사 칵테일 추천 알고리즘을 통한 만들어진 카드들 들어갈 예정
+              </p>
+            </div>
           </div>
         </div>
       </main>
