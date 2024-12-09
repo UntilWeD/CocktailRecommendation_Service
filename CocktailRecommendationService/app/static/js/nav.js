@@ -1,7 +1,7 @@
 // 상단 메뉴 바 조작
-
 const mainTitle = document.querySelector(".nav__main-title");
 const menuIcon = document.querySelector(".nav__menu-icon");
+const navTitle = document.querySelector(".nav__main-title");
 
 const moveToTop = () => {
   window.scrollTo({
@@ -10,4 +10,13 @@ const moveToTop = () => {
   });
 };
 
+const changeNavTitle = () => {
+  if (window.innerWidth <= 915) {
+    navTitle.textContent = "🍸";
+  } else {
+    navTitle.textContent = "🍸Cocktail Recommendation Service";
+  }
+};
+
 mainTitle.addEventListener("click", moveToTop);
+window.addEventListener("resize", changeNavTitle);

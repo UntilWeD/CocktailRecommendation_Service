@@ -57,6 +57,7 @@ input:focus {
   background-color: #2a4480;
   color: white;
   border-radius: 12px;
+  width: 380px;
   height: 40px;
   transition: transform 0.3s ease;
   &:hover {

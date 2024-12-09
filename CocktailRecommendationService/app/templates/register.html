@@ -8,6 +8,10 @@
       rel="stylesheet"
       href="{{ url_for('static', filename='css/login.css') }}"
     />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/register.css') }}"
+    />
   </head>
   <body>
     <div class="wrapper">
@@ -31,6 +35,10 @@
               placeholder="Password"
               required
             />
+            <div class="password-info">
+              영문자, 숫자, 특수문자(!@#$%^*) 포함 8~20자
+            </div>
+            <div class="password-state"></div>
           </div>
           <div class="password-reenter">
             <input
@@ -39,6 +47,7 @@
               placeholder="Re-enter Password"
               required
             />
+            <div class="reenter-state"></div>
           </div>
           <button class="submit-btn" type="submit">가입하기</button>
         </form>
@@ -47,5 +56,6 @@
         </div>
       </div>
     </div>
+    <script src="../static/js/sign-up.js"></script>
   </body>
 </html>
