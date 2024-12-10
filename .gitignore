@@ -6,3 +6,7 @@ text-model/models/bert_model/
 
 *.pyc
 recommend-model/venv/
+
+venv/
+*.dll
+*.lib
