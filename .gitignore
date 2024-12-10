@@ -3,3 +3,6 @@ myenv/
 
 #ignore bert model
 text-model/models/bert_model/
+
+*.pyc
+recommend-model/venv/
