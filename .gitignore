@@ -1,12 +1,15 @@
-#excute myenv
-myenv/
-
-#ignore bert model
-text-model/models/bert_model/
-
+# Exclude Python bytecode files
 *.pyc
-recommend-model/venv/
 
+# Exclude virtual environments
 venv/
+
+# Exclude LFS files
 *.dll
 *.lib
+
+# Ignore the bert model directory
+text-model/models/bert_model/
+
+# Ignore the myenv directory (if used)
+myenv/
