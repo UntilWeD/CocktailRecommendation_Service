@@ -58,3 +58,19 @@ coverage.xml
 # 가상환경-문병준
 bmoenv
 get-pip.py
+/CocktailRecommendationService/app/service/bert_model/best_model.pt
+/CocktailRecommendationService/app/service/bert_model/special_tokens_map.json
+/CocktailRecommendationService/app/service/bert_model/tokenizer.json
+/CocktailRecommendationService/app/service/bert_model/tokenizer_config.json
+/CocktailRecommendationService/app/service/bert_model/vocab.txt
+/CocktailRecommendationService/app/service/models/1_data_preprocessing.ipynb
+/CocktailRecommendationService/app/service/models/2_model_training.ipynb
+/CocktailRecommendationService/app/service/models/3_model_score.ipynb
+/CocktailRecommendationService/app/service/models/4_inference_demo.ipynb
+/CocktailRecommendationService/app/service/models/bert_model/best_model.pt
+/CocktailRecommendationService/app/service/models/bert_model/tokenizer.json
+/CocktailRecommendationService/app/service/models/bert_model/special_tokens_map.json
+/CocktailRecommendationService/app/service/models/bert_model/tokenizer_config.json
+/CocktailRecommendationService/app/service/models/bert_model/vocab.txt
+/CocktailRecommendationService/app/service/models/recommend/bert_model/best_model.pt
+/CocktailRecommendationService/app/service/models/textExtraction/bert_model/best_model.pt

@@ -1,6 +1,6 @@
 import torch
 from transformers import AutoTokenizer
-from model_training import MultiLabelClassifier
+from app.service.models.textExtraction.model_training import MultiLabelClassifier
 import os
 from flask import Flask, request, jsonify, send_file
 from flask_cors import CORS
@@ -74,24 +74,3 @@ class Predict:
             
         except Exception as e:
             return {'error': str(e)}
-
-# Flask 앱 초기화
-app = Flask(__name__)
-CORS(app)
-predictor = Predict()
-
-@app.route('/')
-def index():
-    return send_file('index.html')
-
-@app.route('/predict', methods=['POST'])
-def predict():
-    try:
-        data = request.get_json()
-        prediction = predictor.predict(data['text'])
-        return jsonify(prediction)
-    except Exception as e:
-        return jsonify({'error': str(e)}), 500
-
-if __name__ == '__main__':
-    app.run(port=5000)
