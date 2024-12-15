@@ -41,11 +41,13 @@
 
 
 - 2. 추천받은 칵테일들을 확인한다.
+
 ![5_1-추천값출력](https://github.com/user-attachments/assets/c2a53903-e67c-484e-8b5d-ac04c5799110)
 
 
 
 - 3. 미완성 칵테일 모델 추천(칵테일데이터셋으로부터 정보를 불러오지 않음)
+
 ![6-추천모델값-로그](https://github.com/user-attachments/assets/babd7aad-cbd8-47b4-9cef-98785004435d)
 
 
